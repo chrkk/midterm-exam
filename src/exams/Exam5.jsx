@@ -8,7 +8,7 @@ const generateProducts = () =>
   }));
 
 const ProductList = memo(function ProductList({ items, onSelect }) {
-  console.log('ProductList rendered'); // evidence: should NOT log when counter changes
+  console.log('ProductList rendered');
   return (
     <ul>
       {items.slice(0, 20).map((p) => (
@@ -29,7 +29,6 @@ export default function Exam5() {
   const [selected, setSelected] = useState(null);
   const [counter, setCounter] = useState(0);
 
-  // Reruns only when query, category, sort or products change (all listed)
   const visible = useMemo(() => {
     console.log('filtering...');
     const q = query.trim().toLowerCase();
@@ -38,13 +37,11 @@ export default function Exam5() {
       .sort((a, b) => (sort === 'asc' ? a.price - b.price : b.price - a.price));
   }, [products, query, category, sort]);
 
-  // Stable until `products` changes
   const handleSelect = useCallback(
     (id) => setSelected(products.find((p) => p.id === id) ?? null),
     [products]
   );
 
-  // Side effect (analytics) belongs in useEffect, never inside useMemo
   useEffect(() => {
     console.log('analytics: search', { query, category, sort });
   }, [query, category, sort]);

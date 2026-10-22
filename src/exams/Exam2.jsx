@@ -12,22 +12,17 @@ export default function Exam2() {
   const [results, setResults] = useState(USERS);
   const [seconds, setSeconds] = useState(0);
 
-  // Debounced "search request". Depends on query only. It sets `results`,
-  // which is NOT in the dependency array, so it does not loop.
   useEffect(() => {
     const id = setTimeout(() => {
       const q = query.trim().toLowerCase();
       setResults(USERS.filter((u) =>
         u.name.toLowerCase().includes(q) || u.role.toLowerCase().includes(q)));
     }, 300);
-    // Cleanup cancels the previous pending search -> no outdated result
     return () => clearTimeout(id);
   }, [query]);
 
-  // Timer: functional update avoids capturing the initial `seconds` (stuck at 1)
   useEffect(() => {
     const id = setInterval(() => setSeconds((s) => s + 1), 1000);
-    // Cleanup stops the interval on unmount / StrictMode remount
     return () => clearInterval(id);
   }, []);
 

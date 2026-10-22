@@ -1,6 +1,5 @@
 export const initialState = { issues: [], filter: 'all', nextId: 1 };
 
-// Pure + immutable: never mutates state or issue objects
 export function reducer(state, action) {
   switch (action.type) {
     case 'ADD_ISSUE': {
@@ -24,6 +23,6 @@ export function reducer(state, action) {
     case 'CLEAR_DONE':
       return { ...state, issues: state.issues.filter((i) => !i.done) };
     default:
-      return state; // never undefined
+      return state;
   }
 }

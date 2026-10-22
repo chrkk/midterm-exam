@@ -4,12 +4,12 @@ export default function Exam3() {
   const [values, setValues] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
-  const [clicks, setClicks] = useState(0); // debugging case: visible data -> state
+  const [clicks, setClicks] = useState(0);
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-  const lastEmail = useRef(''); // changing this never triggers a render
+  const lastEmail = useRef('');
 
   const onChange = (e) => setValues((v) => ({ ...v, [e.target.name]: e.target.value }));
 
@@ -21,7 +21,6 @@ export default function Exam3() {
     if (values.password.length < 8) next.password = 'Password must be at least 8 characters.';
     setErrors(next);
 
-    // Refs are used in the event handler, never during render
     if (next.name) return nameRef.current.focus();
     if (next.email) return emailRef.current.focus();
     if (next.password) return passwordRef.current.focus();
@@ -46,7 +45,6 @@ export default function Exam3() {
         <button type="submit">Register</button>
       </form>
       <p>{message}</p>
-      {/* Mutating ref.current schedules no render, so visible counters must be state */}
       <button onClick={() => setClicks((c) => c + 1)}>Clicks: {clicks}</button>
     </section>
   );

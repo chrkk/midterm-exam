@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react';
 
-// ONE context object, exported once and imported everywhere
 export const PreferencesContext = createContext(null);
 
 export function PreferencesProvider({ children }) {

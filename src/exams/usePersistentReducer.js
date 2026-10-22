@@ -1,7 +1,6 @@
 import { useEffect, useReducer } from 'react';
 
 export function usePersistentReducer(reducer, initialState, key) {
-  // Third argument: lazy initializer, so localStorage loads only once
   const [state, dispatch] = useReducer(reducer, initialState, (initial) => {
     try {
       const saved = localStorage.getItem(key);
@@ -12,7 +11,7 @@ export function usePersistentReducer(reducer, initialState, key) {
   });
 
   useEffect(() => {
-    try { localStorage.setItem(key, JSON.stringify(state)); } catch { /* ignore */ }
+    try { localStorage.setItem(key, JSON.stringify(state)); } catch {}
   }, [key, state]);
 
   return [state, dispatch];

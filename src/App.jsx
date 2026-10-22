@@ -27,7 +27,6 @@ export default function App() {
           </button>
         ))}
       </nav>
-      {/* Switching tabs unmounts the old exam, so Exam 2 cleanup can be demonstrated */}
       <Current />
     </>
   );
